@@ -6,11 +6,11 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController _cc;
     private Transform _sandSoldierPivot;
-    private GameObject _sandSoldier;
+    private SandSoldierBehavior _sandSoldierBehavior;
     private float _mvt;
     private float yVelocity;
 
-    public GameObject SandSoldierPrefab;
+    public GameObject SandSoldier;
     public InputAction MvtInput;
     public InputAction JumpInput;
     public InputAction SummonInput;
@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _cc = GetComponent<CharacterController>();
         _sandSoldierPivot = transform.Find("SandSoldier Pivot");
+        _sandSoldierBehavior = SandSoldier.GetComponent<SandSoldierBehavior>();
     }
 
     private void Update()
@@ -35,13 +36,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (SummonInput.triggered)
         {
-            if (_sandSoldier == null)
-            {
-                _sandSoldier = Instantiate(SandSoldierPrefab, _sandSoldierPivot.position, Quaternion.identity);
-                _sandSoldier.GetComponent<SandSoldierBehavior>().PlayerTransform = transform;
-            }
+            if (!_sandSoldierBehavior.Summoned)
+                _sandSoldierBehavior.Summon(_sandSoldierPivot.position);
             else
-                _sandSoldier.GetComponent<SandSoldierBehavior>().SwitchMode();
+                _sandSoldierBehavior.SwitchMode();
         }
 
         //gravity
