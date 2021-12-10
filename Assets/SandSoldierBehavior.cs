@@ -10,13 +10,13 @@ public class SandSoldierBehavior : MonoBehaviour
         Left
     }
 
-    private bool _defenseMode;
+    private bool _defenseMode = true;
     private ShieldPos _currentShield;
 
     public GameObject[] Shields;
     public Transform _playerTransform;
 
-    public void DefenseMode()
+	public void DefenseMode()
     {
         _defenseMode = true;
     }
