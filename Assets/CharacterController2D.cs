@@ -5,7 +5,6 @@ using UnityEngine.Events;
 public class CharacterController2D : MonoBehaviour
 {
 	[SerializeField] private float _jumpForce = 400f;                          // Amount of force added when the player jumps.
-	[SerializeField] private float _grappleForce = 400f;                       // Amount of force added when the player grapples.
 	[Range(0, .3f)] [SerializeField] private float _movementSmoothing = .05f;  // How much to smooth out the movement
 	[SerializeField] private bool _airControl;                         // Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask _whatIsGround;                          // A mask determining what is ground to the character
@@ -52,7 +51,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	public void Move(float move, bool grapple, Vector2 grapplePoint, bool jump)
+	public void Move(float move, bool jump)
 	{
 		//only control the player if grounded or airControl is turned on
 		if (_grounded || _airControl)
@@ -82,16 +81,6 @@ public class CharacterController2D : MonoBehaviour
 			// Add a vertical force to the player.
 			_grounded = false;
 			_rigidbody2D.AddForce(new Vector2(0f, _jumpForce));
-		}
-
-		// If the player should grapple onto something
-		if (grapple)
-		{
-			// Add a force to the player towards the grapple point
-			Vector2 dir = (grapplePoint - _rigidbody2D.position).normalized * _grappleForce;
-			dir.y /= 5f;
-			_rigidbody2D.AddForce(dir, ForceMode2D.Impulse);
-			return;
 		}
 	}
 

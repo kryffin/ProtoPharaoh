@@ -8,10 +8,9 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController2D _controller;
     private float horizontalMovement;
     private bool _jump;
-    private bool _grapple;
 
     public float Speed = 40f;
-    public Transform GrapplePoint;
+    public SandSoldierBehavior SandSoldier;
 
     [Space]
     [Header("Inputs")]
@@ -19,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
     public InputAction HorizontalInput;
     public InputAction JumpInput;
     public InputAction SummonInput;
-    public InputAction GrappleInput;
 
     private void Start()
 	{
@@ -33,16 +31,15 @@ public class PlayerMovement : MonoBehaviour
         if (JumpInput.triggered)
             _jump = true;
 
-        if (GrappleInput.triggered)
-            _grapple = true;
+        if (SummonInput.triggered)
+            SandSoldier.Summon();
     }
 
 	private void FixedUpdate()
 	{
-        _controller.Move(horizontalMovement * Time.fixedDeltaTime, _grapple, GrapplePoint.position, _jump);
+        _controller.Move(horizontalMovement * Time.fixedDeltaTime, _jump);
         
         _jump = false;
-        _grapple = false;
     }
 
 	private void OnEnable()
@@ -50,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
         HorizontalInput.Enable();
         JumpInput.Enable();
         SummonInput.Enable();
-        GrappleInput.Enable();
     }
 
     private void OnDisable()
@@ -58,12 +54,5 @@ public class PlayerMovement : MonoBehaviour
         HorizontalInput.Disable();
         JumpInput.Disable();
         SummonInput.Disable();
-        GrappleInput.Disable();
     }
-
-	private void OnDrawGizmos()
-	{
-        Gizmos.DrawRay(new Ray(transform.position, GrapplePoint.position - transform.position)); ;
-	}
-
 }

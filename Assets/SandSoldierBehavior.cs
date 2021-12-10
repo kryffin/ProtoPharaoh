@@ -12,45 +12,30 @@ public class SandSoldierBehavior : MonoBehaviour
 
     private bool _defenseMode;
     private ShieldPos _currentShield;
-    private float _raycastDistance = 10f;
-
-    private bool _summoned;
-    public bool Summoned
-    {
-        get => _summoned;
-        set => _summoned = value;
-    }
 
     public GameObject[] Shields;
     public Transform _playerTransform;
 
-    public void SwitchMode()
+    public void DefenseMode()
     {
-        _defenseMode = !_defenseMode;
+        _defenseMode = true;
     }
 
-    public void Summon(Vector3 position)
+    public void PlatformMode()
     {
-        //summoning the sand soldier
-        RaycastHit hit;
-        if (Physics.Raycast(position, Vector3.down, out hit, _raycastDistance))
-        {
-            Debug.DrawRay(position, Vector3.down, Color.yellow);
-            Debug.Log("Did Hit");
-            transform.position = hit.transform.position + Vector3.up * 2f;
-        }
-        else
-        {
-            Debug.DrawRay(position, Vector3.down, Color.red);
-            Debug.Log("Did not Hit");
-        }
-
-        Summoned = true;
+        _defenseMode = false;
     }
 
-    private void Update()
+    public void Summon()
     {
-        if (!_defenseMode)
+        transform.position = _playerTransform.position + Vector3.right * 2f;
+        gameObject.SetActive(true);
+    }
+
+	private void Update()
+    {
+        if (_defenseMode)
+        {
             if (_playerTransform.position.x < transform.position.x)
             {
                 Shields[(int)_currentShield].SetActive(false);
@@ -63,6 +48,7 @@ public class SandSoldierBehavior : MonoBehaviour
                 Shields[(int)ShieldPos.Left].SetActive(true);
                 _currentShield = ShieldPos.Left;
             }
+        }
         else
         {
             Shields[(int)_currentShield].SetActive(false);
