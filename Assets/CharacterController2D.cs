@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class CharacterController2D : MonoBehaviour
 {
 	[SerializeField] private float _jumpForce = 400f;                          // Amount of force added when the player jumps.
+	[SerializeField] private float _dashForce = 400f;                          // Amount of force added when the player dashes.
 	[Range(0, .3f)] [SerializeField] private float _movementSmoothing = .05f;  // How much to smooth out the movement
 	[SerializeField] private bool _airControl;                         // Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask _whatIsGround;                          // A mask determining what is ground to the character
@@ -51,7 +52,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	public void Move(float move, bool jump)
+	public void Move(float move, bool jump, bool dash)
 	{
 		//only control the player if grounded or airControl is turned on
 		if (_grounded || _airControl)
@@ -81,6 +82,12 @@ public class CharacterController2D : MonoBehaviour
 			// Add a vertical force to the player.
 			_grounded = false;
 			_rigidbody2D.AddForce(new Vector2(0f, _jumpForce));
+		}
+
+		if (dash && move != 0f)
+        {
+			Vector2 dir = _facingRight ? Vector2.right : Vector2.left;
+			_rigidbody2D.AddForce(dir * _dashForce, ForceMode2D.Impulse);
 		}
 	}
 

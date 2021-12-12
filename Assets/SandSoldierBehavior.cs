@@ -14,7 +14,7 @@ public class SandSoldierBehavior : MonoBehaviour
     private ShieldPos _currentShield;
 
     public GameObject[] Shields;
-    public Transform _playerTransform;
+    public Transform PlayerTransform;
 
 	public void DefenseMode()
     {
@@ -28,7 +28,7 @@ public class SandSoldierBehavior : MonoBehaviour
 
     public void Summon()
     {
-        transform.position = _playerTransform.position + Vector3.right * 2f;
+        transform.position = PlayerTransform.position + Vector3.right * 2f;
         gameObject.SetActive(true);
     }
 
@@ -36,7 +36,7 @@ public class SandSoldierBehavior : MonoBehaviour
     {
         if (_defenseMode)
         {
-            if (_playerTransform.position.x < transform.position.x)
+            if (PlayerTransform.position.x < transform.position.x)
             {
                 Shields[(int)_currentShield].SetActive(false);
                 Shields[(int)ShieldPos.Right].SetActive(true);

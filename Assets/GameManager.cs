@@ -11,6 +11,23 @@ public class GameManager : MonoBehaviour
     public GameObject SandSoldier;
     public FadeToBlack FTB;
 
+    private void Start()
+    {
+        SandSoldier = Instantiate(SandSoldier, Vector3.zero, Quaternion.identity);
+        SandSoldier.SetActive(false);
+        Player.GetComponent<PlayerMovement>().SandSoldier = SandSoldier.GetComponent<SandSoldierBehavior>();
+        SandSoldier.GetComponent<SandSoldierBehavior>().PlayerTransform = Player.transform;
+    }
+
+    public void PlayerHitSpike()
+    {
+        // Fade screen to black
+        // Reposition player
+        SandSoldier.SetActive(false);
+        Player.transform.position = PlayerSpawn.position;
+        FTB.Fade();
+    }
+
     public static GameManager GetInstance()
     {
         return _instance;
@@ -27,14 +44,5 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
-    }
-
-    public void PlayerHitSpike()
-    {
-        // Fade screen to black
-        // Reposition player
-        SandSoldier.SetActive(false);
-        Player.transform.position = PlayerSpawn.position;
-        FTB.Fade();
     }
 }
