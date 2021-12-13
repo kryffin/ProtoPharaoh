@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8484000950233262060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.57, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8484000951874198733}
@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpForce: 700
   _dashForce: 50
+  _dashDuration: 0.2
   _fastFallForce: 2
   _movementSmoothing: 0.05
   _airControl: 1
@@ -224,7 +225,7 @@ MonoBehaviour:
     m_SingletonActionBindings:
     - m_Name: 
       m_Id: f5a1b44a-7a56-44eb-9517-4cc3df4ce0ea
-      m_Path: <Mouse>/rightButton
+      m_Path: <Keyboard>/leftShift
       m_Interactions: 
       m_Processors: 
       m_Groups: 

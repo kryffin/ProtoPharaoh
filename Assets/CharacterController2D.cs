@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,6 +7,7 @@ public class CharacterController2D : MonoBehaviour
 {
 	[SerializeField] private float _jumpForce = 400f;                          // Amount of force added when the player jumps.
 	[SerializeField] private float _dashForce = 400f;                          // Amount of force added when the player dashes.
+	[SerializeField] private float _dashDuration = .5f;                          // Amount of seconds the player dashes.
 	[SerializeField] private float _fastFallForce = 1.2f;                       // Amount of force added when the player fast falls.
 	[Range(0, .3f)] [SerializeField] private float _movementSmoothing = .05f;  // How much to smooth out the movement
 	[SerializeField] private bool _airControl;                         // Whether or not a player can steer while jumping;
@@ -97,9 +99,19 @@ public class CharacterController2D : MonoBehaviour
 
 		if (dash && move != 0f)
         {
+			StartCoroutine(Dash());
+
 			Vector2 dir = _facingRight ? Vector2.right : Vector2.left;
 			_rigidbody2D.AddForce(dir * _dashForce, ForceMode2D.Impulse);
 		}
+	}
+
+	// Enables the player to dash through Dashable objects for a given duration
+	private IEnumerator Dash()
+    {
+		gameObject.layer = LayerMask.NameToLayer("Dashing");
+		yield return new WaitForSeconds(_dashDuration);
+		gameObject.layer = LayerMask.NameToLayer("Player");
 	}
 
 	private void Flip()
