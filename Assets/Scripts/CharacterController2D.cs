@@ -69,8 +69,7 @@ public class CharacterController2D : MonoBehaviour
 			// Move the character by finding the target velocity
 			Vector2 targetVelocity = new Vector2(move * 10f, _rigidbody2D.velocity.y);
 
-			//if (IsGrappled && jump) transform.Find("GrapplingHook").GetComponent<GrapplingHook>().GoUp();
-			//if (IsGrappled && fastFall) transform.Find("GrapplingHook").GetComponent<GrapplingHook>().GoDown();
+			if (IsGrappled) targetVelocity *= 1.2f;
 
 			// TAKE 2
 			if (!_grounded && fastFall)
