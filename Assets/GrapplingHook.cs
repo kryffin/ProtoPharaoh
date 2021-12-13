@@ -8,9 +8,10 @@ public class GrapplingHook : MonoBehaviour
 	private bool _started;
 	private bool _canceled;
 	private SpringJoint2D _joint;
+	private Transform grapplePoint;
 
 	public LayerMask whatIsGrappleable;
-	public Transform GrapplePoint;
+	public float Radius;
 
 	[Header("Input")]
 	[Space]
@@ -41,15 +42,18 @@ public class GrapplingHook : MonoBehaviour
 
 	public void StartGrapple()
 	{
-		if (GrapplePoint == null) return;
+		var gp = Physics2D.OverlapCircle(transform.position, Radius, whatIsGrappleable);
+		if (gp == null) return;
+
+		grapplePoint = gp.gameObject.transform;
 
 		_joint = transform.parent.gameObject.AddComponent<SpringJoint2D>();
 		_joint.autoConfigureConnectedAnchor = false;
-		_joint.connectedAnchor = GrapplePoint.position;
+		_joint.connectedAnchor = grapplePoint.position;
 
 		_joint.enableCollision = true;
 
-		float distance = Vector2.Distance(transform.position, GrapplePoint.position);
+		float distance = Vector2.Distance(transform.position, grapplePoint.position);
 		_joint.distance = distance;
 
 		_joint.dampingRatio = 1f;
@@ -62,7 +66,7 @@ public class GrapplingHook : MonoBehaviour
 	{
 		if (!_joint) return;
 		_lr.SetPosition(0, transform.position);
-		_lr.SetPosition(1, GrapplePoint.position);
+		_lr.SetPosition(1, grapplePoint.position);
 	}
 
 	public void StopGrapple()
@@ -82,4 +86,10 @@ public class GrapplingHook : MonoBehaviour
 	{
 		GrappleInput.Disable();
 	}
+
+    private void OnDrawGizmosSelected()
+    {
+		Gizmos.color = new Color(0f, 1f, 0f, 0.2f);
+		Gizmos.DrawSphere(transform.position, Radius);
+    }
 }

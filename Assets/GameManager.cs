@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
         SandSoldier = Instantiate(SandSoldier, Vector3.zero, Quaternion.identity);
         SandSoldier.SetActive(false);
         Player.GetComponent<PlayerMovement>().SandSoldier = SandSoldier.GetComponent<SandSoldierBehavior>();
-        SandSoldier.GetComponent<SandSoldierBehavior>().PlayerTransform = Player.transform;
+        SandSoldier.GetComponent<SandSoldierBehavior>().Player = Player;
     }
 
     public void PlayerHitSpike()

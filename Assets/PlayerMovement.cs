@@ -32,9 +32,6 @@ public class PlayerMovement : MonoBehaviour
 	{
         horizontalMovement = HorizontalInput.ReadValue<float>() * Speed;
 
-        if (FastFallInput.triggered)
-            _fastFall = true;
-
         if (JumpInput.triggered)
             _jump = true;
 
@@ -49,7 +46,6 @@ public class PlayerMovement : MonoBehaviour
 	{
         _controller.Move(horizontalMovement * Time.fixedDeltaTime, _fastFall, _jump, _dash);
 
-        _fastFall = false;
         _jump = false;
         _dash = false;
     }
@@ -58,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
     {
         HorizontalInput.Enable();
         FastFallInput.Enable();
+        FastFallInput.started += ctx => _fastFall = true;
+        FastFallInput.canceled += ctx => _fastFall = false;
         JumpInput.Enable();
         SummonInput.Enable();
         DashInput.Enable();

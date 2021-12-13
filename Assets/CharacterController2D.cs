@@ -6,6 +6,7 @@ public class CharacterController2D : MonoBehaviour
 {
 	[SerializeField] private float _jumpForce = 400f;                          // Amount of force added when the player jumps.
 	[SerializeField] private float _dashForce = 400f;                          // Amount of force added when the player dashes.
+	[SerializeField] private float _fastFallForce = 1.2f;                       // Amount of force added when the player fast falls.
 	[Range(0, .3f)] [SerializeField] private float _movementSmoothing = .05f;  // How much to smooth out the movement
 	[SerializeField] private bool _airControl;                         // Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask _whatIsGround;                          // A mask determining what is ground to the character
@@ -13,7 +14,10 @@ public class CharacterController2D : MonoBehaviour
 	private const float _groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool _grounded;            // Whether or not the player is grounded.
 	private Rigidbody2D _rigidbody2D;
+
 	private bool _facingRight = true;  // For determining which way the player is currently facing.
+	public bool FacingRight { get => _facingRight; }
+
 	private Vector3 _velocity = Vector3.zero;
 
 	[Header("Events")]
@@ -59,6 +63,13 @@ public class CharacterController2D : MonoBehaviour
 		{
 			// Move the character by finding the target velocity
 			Vector2 targetVelocity = new Vector2(move * 10f, _rigidbody2D.velocity.y);
+
+			// TAKE 2
+			if (!_grounded && fastFall)
+            {
+				targetVelocity += Vector2.down * _fastFallForce;
+            }
+
 			// And then smoothing it out and applying it to the character
 			_rigidbody2D.velocity = Vector3.SmoothDamp(_rigidbody2D.velocity, targetVelocity, ref _velocity, _movementSmoothing);
 
@@ -89,11 +100,6 @@ public class CharacterController2D : MonoBehaviour
 			Vector2 dir = _facingRight ? Vector2.right : Vector2.left;
 			_rigidbody2D.AddForce(dir * _dashForce, ForceMode2D.Impulse);
 		}
-
-		if (!_grounded && fastFall)
-        {
-
-        }
 	}
 
 	private void Flip()
@@ -106,4 +112,10 @@ public class CharacterController2D : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
+
+    private void OnDrawGizmos()
+    {
+		if (_rigidbody2D == null) return;
+		Gizmos.DrawRay(new Ray(_rigidbody2D.position, _rigidbody2D.velocity));
+    }
 }

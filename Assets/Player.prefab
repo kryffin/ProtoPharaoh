@@ -102,11 +102,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpForce: 700
   _dashForce: 50
+  _fastFallForce: 2
   _movementSmoothing: 0.05
   _airControl: 1
   _whatIsGround:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 311
   _groundCheck: {fileID: 8484000951874198733}
   OnLandEvent:
     m_PersistentCalls:
@@ -157,6 +158,22 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Horizontal Input
       m_Flags: 8
+  FastFallInput:
+    m_Name: Fast Fall Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: ffc9f88c-df86-42ba-911c-0979dc48ba5f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 53d1c923-0ae6-485e-9ae4-37aa35ea225e
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Fast Fall Input
+      m_Flags: 0
   JumpInput:
     m_Name: Jump Input
     m_Type: 0
@@ -297,7 +314,7 @@ MonoBehaviour:
   whatIsGrappleable:
     serializedVersion: 2
     m_Bits: 128
-  GrapplePoint: {fileID: 0}
+  Radius: 5
   GrappleInput:
     m_Name: Grapple Input
     m_Type: 0
