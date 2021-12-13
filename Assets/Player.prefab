@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 8484000950233262060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 8484000951874198733}
   - {fileID: 8484000950648637484}
@@ -103,7 +103,7 @@ MonoBehaviour:
   _jumpForce: 700
   _dashForce: 50
   _dashDuration: 0.2
-  _fastFallForce: 2
+  _fastFallForce: 8
   _movementSmoothing: 0.05
   _airControl: 1
   _whatIsGround:
@@ -326,7 +326,7 @@ MonoBehaviour:
     m_SingletonActionBindings:
     - m_Name: 
       m_Id: 44a5eb08-babe-440d-bc36-84e177fe738c
-      m_Path: <Mouse>/leftButton
+      m_Path: <Mouse>/rightButton
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -351,7 +351,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1122294a7d7a3b14186bb23c02f7851d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -393,8 +393,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0, b: 0, a: 1}
-      key1: {r: 0, g: 0, b: 0, a: 1}
+      key0: {r: 0.89411765, g: 0.7882353, b: 0.48235294, a: 1}
+      key1: {r: 0.89411765, g: 0.7882353, b: 0.48235294, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

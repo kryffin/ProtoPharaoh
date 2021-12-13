@@ -26,6 +26,7 @@ public class CharacterController2D : MonoBehaviour
 	[Space]
 
 	public UnityEvent OnLandEvent;
+	public bool IsGrappled;
 
 	[System.Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
@@ -60,6 +61,8 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Move(float move, bool fastFall, bool jump, bool dash)
 	{
+		if (IsGrappled) return;
+
 		//only control the player if grounded or airControl is turned on
 		if (_grounded || _airControl)
 		{

@@ -75,6 +75,8 @@ public class GrapplingHook : MonoBehaviour
 		_joint.frequency = 0f;
 
 		_lr.positionCount = 2;
+
+		transform.parent.GetComponent<CharacterController2D>().IsGrappled = true;
 	}
 
 	private void DrawRope()
@@ -88,6 +90,8 @@ public class GrapplingHook : MonoBehaviour
 	{
 		_lr.positionCount = 0;
 		Destroy(_joint);
+
+		transform.parent.GetComponent<CharacterController2D>().IsGrappled = false;
 	}
 
 	private void OnEnable()
@@ -104,7 +108,7 @@ public class GrapplingHook : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-		Gizmos.color = new Color(0f, 1f, 0f, 0.2f);
+		Gizmos.color = new Color(0.8941177f, 0.7882353f, 0.4823529f, 0.2f);
 		Gizmos.DrawSphere(transform.position, Radius);
     }
 }

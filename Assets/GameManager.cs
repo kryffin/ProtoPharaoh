@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         SandSoldier.SetActive(false);
         Player.transform.position = PlayerSpawn.position;
         Player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        FTB.Fade();
+        StartCoroutine(FTB.Fade());
     }
 
     public static GameManager GetInstance()

@@ -1,13 +1,12 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FadeToBlack : MonoBehaviour
 {
-    private float _fadeClock = -10f;
-    private bool _fading;
     private Image _img;
 
-    public float TimeToBlack = 1f;
+    public float TimeToClear = 1f;
     public Color ScreenColor;
 
 	private void Start()
@@ -15,28 +14,13 @@ public class FadeToBlack : MonoBehaviour
         _img = GetComponent<Image>();
 	}
 
-	public void Fade()
+    public IEnumerator Fade()
     {
-        _fadeClock = Time.time;
-        _fading = true;
-    }
-
-	private void Update()
-	{
-        if (_fading)
+        for (float alpha = 1f; alpha >= 0f; alpha -= 0.01f)
         {
-            if (Time.time < _fadeClock + TimeToBlack)
-            {
-                ScreenColor.a = ((_fadeClock + TimeToBlack) - Time.time) / TimeToBlack;
-                _img.color = ScreenColor;
-            }
-            else
-            {
-                ScreenColor.a = 0f;
-                _img.color = ScreenColor;
-
-                _fading = false;
-            }
+            ScreenColor.a = alpha;
+            _img.color = ScreenColor;
+            yield return new WaitForSeconds(TimeToClear / 100f);
         }
-	}
+    }
 }
