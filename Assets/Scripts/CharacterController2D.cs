@@ -27,6 +27,8 @@ public class CharacterController2D : MonoBehaviour
 
 	public UnityEvent OnLandEvent;
 	public bool IsGrappled;
+	public Material PlayerMaterial;
+	public Material DashingMaterial;
 
 	[System.Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
@@ -61,13 +63,14 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Move(float move, bool fastFall, bool jump, bool dash)
 	{
-		if (IsGrappled) return;
-
 		//only control the player if grounded or airControl is turned on
 		if (_grounded || _airControl)
 		{
 			// Move the character by finding the target velocity
 			Vector2 targetVelocity = new Vector2(move * 10f, _rigidbody2D.velocity.y);
+
+			//if (IsGrappled && jump) transform.Find("GrapplingHook").GetComponent<GrapplingHook>().GoUp();
+			//if (IsGrappled && fastFall) transform.Find("GrapplingHook").GetComponent<GrapplingHook>().GoDown();
 
 			// TAKE 2
 			if (!_grounded && fastFall)
@@ -102,6 +105,8 @@ public class CharacterController2D : MonoBehaviour
 
 		if (dash && move != 0f)
         {
+			transform.Find("GrapplingHook").GetComponent<GrapplingHook>().StopGrapple();
+
 			StartCoroutine(Dash());
 
 			Vector2 dir = _facingRight ? Vector2.right : Vector2.left;
@@ -113,8 +118,10 @@ public class CharacterController2D : MonoBehaviour
 	private IEnumerator Dash()
     {
 		gameObject.layer = LayerMask.NameToLayer("Dashing");
+		GetComponent<MeshRenderer>().material = DashingMaterial;
 		yield return new WaitForSeconds(_dashDuration);
 		gameObject.layer = LayerMask.NameToLayer("Player");
+		GetComponent<MeshRenderer>().material = PlayerMaterial;
 	}
 
 	private void Flip()

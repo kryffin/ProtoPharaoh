@@ -7,11 +7,14 @@ public class GrapplingHook : MonoBehaviour
     private LineRenderer _lr;
 	private bool _started;
 	private bool _canceled;
+	private bool _upward;
+	private bool _downward;
 	private SpringJoint2D _joint;
 	private Transform grapplePoint;
 
 	public LayerMask whatIsGrappleable;
 	public float Radius;
+	public float UpDownSpeed = 1f;
 
 	[Header("Input")]
 	[Space]
@@ -30,6 +33,12 @@ public class GrapplingHook : MonoBehaviour
 
 		if (_canceled)
 			StopGrapple();
+
+		if (_upward)
+			GoUp();
+
+		if (_downward)
+			GoDown();
 
 		_started = false;
 		_canceled = false;
@@ -86,6 +95,18 @@ public class GrapplingHook : MonoBehaviour
 		_lr.SetPosition(1, grapplePoint.position);
 	}
 
+	public void GoUp()
+    {
+		if (_joint == null) return;
+		_joint.distance -= UpDownSpeed * Time.deltaTime;
+    }
+
+	public void GoDown()
+	{
+		if (_joint == null) return;
+		_joint.distance += UpDownSpeed * Time.deltaTime;
+	}
+
 	public void StopGrapple()
 	{
 		_lr.positionCount = 0;
@@ -99,6 +120,11 @@ public class GrapplingHook : MonoBehaviour
 		GrappleInput.Enable();
 		GrappleInput.started += ctx => _started = true;
 		GrappleInput.canceled += ctx => _canceled = true;
+
+		transform.parent.GetComponent<PlayerMovement>().JumpInput.started += ctx => _upward = true;
+		transform.parent.GetComponent<PlayerMovement>().JumpInput.canceled += ctx => _upward = false;
+		transform.parent.GetComponent<PlayerMovement>().FastFallInput.started += ctx => _downward = true;
+		transform.parent.GetComponent<PlayerMovement>().FastFallInput.canceled += ctx => _downward = false;
 	}
 
 	private void OnDisable()

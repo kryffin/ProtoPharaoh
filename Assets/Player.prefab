@@ -113,6 +113,9 @@ MonoBehaviour:
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
+  IsGrappled: 0
+  PlayerMaterial: {fileID: 2100000, guid: 502fd69283f481049aeb6a8a988f8a98, type: 2}
+  DashingMaterial: {fileID: 2100000, guid: 6269ec5fb9fdf1743a3cd3fbff23ee24, type: 2}
 --- !u!114 &8484000950233262055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,6 +319,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   Radius: 5
+  UpDownSpeed: 3
   GrappleInput:
     m_Name: Grapple Input
     m_Type: 0
@@ -375,7 +379,7 @@ LineRenderer:
   m_Positions: []
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.2
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -393,8 +397,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.89411765, g: 0.7882353, b: 0.48235294, a: 1}
-      key1: {r: 0.89411765, g: 0.7882353, b: 0.48235294, a: 1}
+      key0: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+      key1: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

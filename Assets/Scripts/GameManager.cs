@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
         SandSoldier.SetActive(false);
         Player.transform.position = PlayerSpawn.position;
         Player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        Player.transform.Find("GrapplingHook").GetComponent<GrapplingHook>().StopGrapple();
         StartCoroutine(FTB.Fade());
     }
 
