@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Player = Instantiate(Player, PlayerSpawn.position, Quaternion.identity);
+
         SandSoldier = Instantiate(SandSoldier, Vector3.zero, Quaternion.identity);
         SandSoldier.SetActive(false);
         Player.GetComponent<PlayerMovement>().SandSoldier = SandSoldier.GetComponent<SandSoldierBehavior>();

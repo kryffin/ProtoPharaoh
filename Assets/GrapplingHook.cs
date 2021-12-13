@@ -41,6 +41,8 @@ public class GrapplingHook : MonoBehaviour
 
 	public void StartGrapple()
 	{
+		if (GrapplePoint == null) return;
+
 		_joint = transform.parent.gameObject.AddComponent<SpringJoint2D>();
 		_joint.autoConfigureConnectedAnchor = false;
 		_joint.connectedAnchor = GrapplePoint.position;
