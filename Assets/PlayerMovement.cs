@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController2D _controller;
     private float horizontalMovement;
+    private bool _fastFall;
     private bool _jump;
     private bool _dash;
 
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Inputs")]
 
     public InputAction HorizontalInput;
+    public InputAction FastFallInput;
     public InputAction JumpInput;
     public InputAction SummonInput;
     public InputAction DashInput;
@@ -30,6 +32,9 @@ public class PlayerMovement : MonoBehaviour
 	{
         horizontalMovement = HorizontalInput.ReadValue<float>() * Speed;
 
+        if (FastFallInput.triggered)
+            _fastFall = true;
+
         if (JumpInput.triggered)
             _jump = true;
 
@@ -42,8 +47,9 @@ public class PlayerMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-        _controller.Move(horizontalMovement * Time.fixedDeltaTime, _jump, _dash);
-        
+        _controller.Move(horizontalMovement * Time.fixedDeltaTime, _fastFall, _jump, _dash);
+
+        _fastFall = false;
         _jump = false;
         _dash = false;
     }
@@ -51,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
 	private void OnEnable()
     {
         HorizontalInput.Enable();
+        FastFallInput.Enable();
         JumpInput.Enable();
         SummonInput.Enable();
         DashInput.Enable();
@@ -59,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         HorizontalInput.Disable();
+        FastFallInput.Disable();
         JumpInput.Disable();
         SummonInput.Disable();
         DashInput.Disable();

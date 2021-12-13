@@ -52,7 +52,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	public void Move(float move, bool jump, bool dash)
+	public void Move(float move, bool fastFall, bool jump, bool dash)
 	{
 		//only control the player if grounded or airControl is turned on
 		if (_grounded || _airControl)
@@ -89,6 +89,11 @@ public class CharacterController2D : MonoBehaviour
 			Vector2 dir = _facingRight ? Vector2.right : Vector2.left;
 			_rigidbody2D.AddForce(dir * _dashForce, ForceMode2D.Impulse);
 		}
+
+		if (!_grounded && fastFall)
+        {
+
+        }
 	}
 
 	private void Flip()
