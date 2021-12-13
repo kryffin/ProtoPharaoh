@@ -42,10 +42,25 @@ public class GrapplingHook : MonoBehaviour
 
 	public void StartGrapple()
 	{
-		var gp = Physics2D.OverlapCircle(transform.position, Radius, whatIsGrappleable);
-		if (gp == null) return;
+		Collider2D[] gps = Physics2D.OverlapCircleAll(transform.position, Radius, whatIsGrappleable);
+		if (gps.Length == 0) return;
 
-		grapplePoint = gp.gameObject.transform;
+		float minDist = float.MaxValue;
+		int index = -1;
+
+		int i = 0;
+		foreach(Collider2D gp in gps)
+        {
+			float tmpDist = Vector2.Distance(transform.position, gp.transform.position);
+			if (tmpDist < minDist)
+            {
+				minDist = tmpDist;
+				index = i;
+            }
+			i++;
+        }
+
+		grapplePoint = gps[index].gameObject.transform;
 
 		_joint = transform.parent.gameObject.AddComponent<SpringJoint2D>();
 		_joint.autoConfigureConnectedAnchor = false;
