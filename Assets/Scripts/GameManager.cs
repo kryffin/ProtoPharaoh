@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Player = Instantiate(Player, PlayerSpawn.position, Quaternion.identity);
+        var ct = Camera.main.GetComponent<CameraTracking>();
+        if (ct != null) ct.Player = Player.transform;
 
         SandSoldier = Instantiate(SandSoldier, Vector3.zero, Quaternion.identity);
         SandSoldier.SetActive(false);
