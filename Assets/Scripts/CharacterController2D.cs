@@ -102,7 +102,7 @@ public class CharacterController2D : MonoBehaviour
 			_rigidbody2D.AddForce(new Vector2(0f, _jumpForce));
 		}
 
-		if (dash && move != 0f)
+		if (dash)
         {
 			transform.Find("GrapplingHook").GetComponent<GrapplingHook>().StopGrapple();
 
@@ -110,6 +110,7 @@ public class CharacterController2D : MonoBehaviour
 
 			Vector2 dir = _facingRight ? Vector2.right : Vector2.left;
 			_rigidbody2D.AddForce(dir * _dashForce, ForceMode2D.Impulse);
+			_rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0f);
 		}
 	}
 
