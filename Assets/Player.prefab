@@ -108,7 +108,7 @@ MonoBehaviour:
   _airControl: 1
   _whatIsGround:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 1024
   _groundCheck: {fileID: 8484000951874198733}
   OnLandEvent:
     m_PersistentCalls:
@@ -315,6 +315,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdac9068b94de049b6d125c74a28ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1024
   whatIsGrappleable:
     serializedVersion: 2
     m_Bits: 128
@@ -442,7 +445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8484000950734796224}
   - component: {fileID: 8484000950734796227}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spotlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

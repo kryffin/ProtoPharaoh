@@ -675,8 +675,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4289638062
+  m_fontColor: {r: 0.68235296, g: 0.68235296, b: 0.68235296, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1217,7 +1217,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2045887724}
   - component: {fileID: 2045887723}
-  - component: {fileID: 2045887722}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1225,14 +1224,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &2045887722
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2045887721}
-  m_Enabled: 1
 --- !u!20 &2045887723
 Camera:
   m_ObjectHideFlags: 0

@@ -10,7 +10,9 @@ public class GrapplingHook : MonoBehaviour
 	private bool _upward;
 	private bool _downward;
 	private SpringJoint2D _joint;
-	private Transform grapplePoint;
+	private Transform _grapplePoint;
+	private float _distance;
+	[SerializeField] private LayerMask _layerMask;
 
 	public LayerMask whatIsGrappleable;
 	public float Radius;
@@ -34,17 +36,33 @@ public class GrapplingHook : MonoBehaviour
 		if (_canceled)
 			StopGrapple();
 
-		if (_upward)
-			GoUp();
+		if (_joint != null)
+        {
+			if (_upward)
+				GoUp();
 
-		if (_downward)
-			GoDown();
+			if (_downward)
+				GoDown();
+
+		}
 
 		_started = false;
 		_canceled = false;
 	}
 
-	private void LateUpdate()
+    private void FixedUpdate()
+    {
+        if (_joint != null)
+        {
+			// Check if the rope should break
+			RaycastHit2D hit = Physics2D.Raycast(transform.position, (_grapplePoint.position - transform.position).normalized, _distance, _layerMask);
+			Debug.DrawRay(transform.position, (_grapplePoint.position - transform.position).normalized * _distance, Color.red);
+			if (hit.collider != null)
+				StopGrapple();
+		}
+	}
+
+    private void LateUpdate()
 	{
 		DrawRope();
 	}
@@ -69,16 +87,17 @@ public class GrapplingHook : MonoBehaviour
 			i++;
         }
 
-		grapplePoint = gps[index].gameObject.transform;
+		_grapplePoint = gps[index].gameObject.transform;
 
 		_joint = transform.parent.gameObject.AddComponent<SpringJoint2D>();
 		_joint.autoConfigureConnectedAnchor = false;
-		_joint.connectedAnchor = grapplePoint.position;
+		_joint.connectedAnchor = _grapplePoint.position;
 
 		_joint.enableCollision = true;
 
-		float distance = Vector2.Distance(transform.position, grapplePoint.position);
+		float distance = Vector2.Distance(transform.position, _grapplePoint.position);
 		_joint.distance = distance;
+		_distance = _joint.distance;
 
 		_joint.dampingRatio = 1f;
 		_joint.frequency = 0f;
@@ -92,19 +111,19 @@ public class GrapplingHook : MonoBehaviour
 	{
 		if (!_joint) return;
 		_lr.SetPosition(0, transform.position);
-		_lr.SetPosition(1, grapplePoint.position);
+		_lr.SetPosition(1, _grapplePoint.position);
 	}
 
 	public void GoUp()
     {
-		if (_joint == null) return;
 		_joint.distance -= UpDownSpeed * Time.deltaTime;
+		_distance = _joint.distance;
     }
 
 	public void GoDown()
 	{
-		if (_joint == null) return;
 		_joint.distance += UpDownSpeed * Time.deltaTime;
+		_distance = _joint.distance;
 	}
 
 	public void StopGrapple()
