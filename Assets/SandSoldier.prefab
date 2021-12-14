@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7220743043581391170}
   - component: {fileID: 3154323912817420701}
   - component: {fileID: 4291697595133265070}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shield Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 8908023259318951718}
   - component: {fileID: 182552883290596762}
   - component: {fileID: 2385286169005817804}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shield Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 7327395685641063108}
   - component: {fileID: 3555220619254617249}
   - component: {fileID: 601730342059595137}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shield Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
