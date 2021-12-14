@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Bandelettes.unity
+    guid: 5fa78c0fbaf26ae498bcc3b21c9487cf
   m_configObjects: {}
